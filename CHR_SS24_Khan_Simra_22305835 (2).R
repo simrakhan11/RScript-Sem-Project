@@ -1,0 +1,73 @@
+# Import the data set in our case its Patient discharge 
+Patientdischarge<-read.csv(file.choose(),header=TRUE)
+
+# The two columns I've chosen are "Medication_mg" & "Hematocrit"
+
+# Performing shapiro.test to check the distribution of both the columns & to know the appropriate measure of center 
+
+# shapiro.test for Medication_mg # Result obtained : W = 0.67608, p-value = 7.874e-12
+shapiro.test(Patientdischarge$Medication_mg)
+
+# shapiro.test for Hematocrit # Result obtained : W = 0.97237, p-value = 0.08767
+shapiro.test(Patientdischarge$Hematocrit)
+
+# After performing the shapiro.test the appropriate measure of center 
+
+# For Medication_mg is Median
+Medication_mg_median<-median(Patientdischarge$Medication_mg)
+
+# For Hematocrit is Mean 
+Hematocrit_mean<-mean(Patientdischarge$Hematocrit)
+
+
+# Calculating appropriate measure of spread for the chosen columns "Medication_mg" & "Hematocrit"
+
+# Calculating Interquartile Range (IQR) for Medication_mg
+Medication_mg_IQR<-IQR(Patientdischarge$Medication_mg)
+
+# Calculating Standard Deviation (sd) for Hematocrit
+Hematocrit_sd<-sd(Patientdischarge$Hematocrit)
+
+#Test for correlation between the selected quantitative columns
+cor(Patientdischarge$Hematocrit,Patientdischarge$Medication_mg,method = "kendall")
+
+# Graphical representation for column "Hematocrit"
+Hematocrit_data <-hist(Patientdischarge$Hematocrit,
+                 col = c("pink", "blue", "purple","red"),
+                 ylim = c(0,25),
+                 xlim = c(0.2,0.7),
+                 main = "Histogram of patients hematocrit level",
+                 xlab= "Hematocrit volume (%)",
+                 ylab = "Patient Population",
+                 border = "black")
+                   
+# Calculating the confidence interval for column "Hematocrit" (for 85% confidence level)
+# Assuming we've a sample from larger population 
+
+# 1 calculate the mean
+m1<-mean(Patientdischarge$Hematocrit)
+# 2 calculate the standard deviation of the sample 
+sd1<-sd(Patientdischarge$Hematocrit)
+# 3 calculate the standard error 
+se1<-sd1/sqrt(length(Patientdischarge$Hematocrit))
+# 4 calculating the UpperCI & LowerCI
+lowerCI<-m1-qnorm(0.925)*se1
+upperCI<-m1+qnorm(0.925)*se1
+
+# Hypothesis testing 1
+
+##(Hₒ): population mean of Hematocrit is 0.41
+#(Hₐ): Population mean is different 0.41
+#Perform an independent samples t-test
+#mu=0.41
+t.test(Patientdischarge$Hematocrit, alternative = "two.sided", mu=0.41, conf.level=0.95)
+# Result : p-value = 0.65 (Hypothesis not rejected)
+
+#Hypothesis testing 2 
+
+##(Hₒ): population mean of age is greater or equal 75
+#(Hₐ): Population mean of age is less than  75 
+#Perform an independent samples t-test
+#mu=75
+t.test(Patientdischarge$Age, alternative = "less", mu=75, conf.level=0.95)
+# Result : p-value = 1 (Hypothesis not rejected)
