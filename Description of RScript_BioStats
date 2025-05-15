@@ -1,0 +1,121 @@
+Written Student Research Project
+
+Hand in your R script and a written description of the whole project. The script should be
+complete, structured, and commented. In the textual part, you should describe for every
+step: the name of the chosen methods, why you choose them, the results and how they
+can be interpreted. The projects should have two parts:
+
+1) Descriptive Analysis
+
+Perform a descriptive analysis for the given exam dataset.
+➢ Select two quantitative columns
+The two columns I’ve chosen from the provided data set of “Patient Discharge”
+are:
+1. Medication_mg
+2. Hematocrit
+
+➢ Show appropriate measures of center for both
+The appropriate measure of centers for Medication_mg is “Median” and for
+Hematocrit is “Mean”
+o The Median for Medication_mg is 150
+o The Mean for Hematocrit is 0.405
+
+❖ Reasons to choose these “Median” & “Mode” as appropriate centers of measures
+are stated below:
+
+a) In order to select the appropriate measures of center for both the columns, I’ve
+performed the “Shapiro-Wilk Normality Test” to observe if either of these
+columns have normal or abnormal distribution;
+P-value < 0.05 : Normal distribution
+P-values > 0.05 : Abnormal distribution
+b) After performing the Shapiro test on Medication_mg the observed P-value is
+0.000000000007874 which indicates
+▪ The appropriate measure of center for Medication_mg would be “Median”
+as the P-value obtained is (0.000000000007874 > 0.05).
+▪ The column Medication_mg has extreme values ranging from 75-700
+which is another reason to choose “Median” as measure of center.
+c) After performing the test on Hematocrit the observed P-value is 0.41 which
+indicates
+▪ The appropriate measure of center for Hematocrit would be “Mean” as the
+P-value obtained is (0.41 < 0.05)
+▪ The column Hematocrit doesn’t have extreme values.
+
+➢ Show appropriate measures of spread for both
+The appropriate measure of spread would be;
+1. For Medication_mg : Interquartile Ranges (IQR).
+a) The value obtained for IQR is 100.
+b) Means, that middle 50% of the data falls between 0 and 200. It suggests that the
+data is fairly spread out, but not excessively.
+c) The Interquartile Range (IQR) is a robust measure of spread which is not affected
+by the outliers due to which I’ve chosen IQR as appropriate measure of spread for
+Medication_mg column, which has some outliers.
+
+2. For Hematocrit : Standard Deviation (sd).
+a) The value obtained for sd is 0.076.
+b) A low standard deviation indicates that the data points tend to be very close to
+the mean, while a high standard deviation indicates the data is spread out over
+wide range of values.
+c) In this case, 0.076 standard deviation is relatively small compared to the mean
+Hematocrit value of 0.4, which suggests that the data points are clustered
+relatively close to mean. This makes the standard deviation a more reliable
+measure of spread than other measures.
+➢ Test those columns for correlation
+For correlation, I’ve chosen “Kendall correlation”
+a) Since the distribution is not normal in the Medication_mg column.
+b) The given sample size is relatively small.
+c) The value obtained after performing kendall correlation is -0.0159.
+d) -0.0159 suggests, the correlation between two column is a weak negative
+correlation.
+➢ Provide a representative and good looking graphic for one interesting
+column.
+▪ The column I’ve chosen for this part is “Hematocrit”.
+▪ Since we’re dealing with quantitative data, the % of volume of hematocrit
+as per the patient population can be represented in an understandable
+manner using “Histogram”.
+
+
+2) Inferential Assumptions
+Imagine this dataset is a sample from a larger population. Make predictions for the
+whole population based on the observed data.
+➢ Formulate a potentially interesting research question that comes to your
+mind for the dataset.
+Research Question: “Is there a gender-specific association between medication
+use and hematocrit levels?”
+➢ Calculate Confidence Intervals for one quantitative column (confidence
+level 85%)
+▪ The column I’ve chosen from the given dataset is “Hematocrit”
+Confidence level: 85 % -> 0.925
+Significance level α: 15/100 = 0.15
+▪ In order to calculate the confidence level of 85% for chosen column in R-studio
+there are few steps;
+1. First we find out the mean: m1-> 0.41
+2. Then, standard deviation: sd1-> 0.076
+3. standard error: sd1-> 0.0086
+4. Then we calculate both the
+o Upper limit: UpperCI -> 0.42
+o Lower limit: LowerCI -> 0.40
+▪ The values obtained from upperCI 0.42 & lowerCI 0.40 Means, we get a very
+narrow CI of 0.41 which serve as plausible range for the true population mean
+based on the information gleaned from the sample.
+➢ State two different hypotheses for any variables in the dataset and make
+hypothesis tests to prove it or reject it
+Hypothesis testing for 2 variables in data set; having the confidence interval CI
+0.95
+
+1. Hypothesis Testing 1:
+• Null Hypothesis: The null hypothesis (H₀) is that the population
+mean of Hematocrit is 0.41.
+• Alternative hypothesis (Hₐ): The alternative hypothesis (Hₐ) is
+that the population mean of Hematocrit is different from 0.41.
+• An independent samples t-test was conducted to test the
+hypotheses.
+• The t-test resulted in a very high p-value of 0.6 which is greater
+than 0.05, suggesting that there is not enough evidence to reject
+the null hypothesis
+
+2. Hypothesis Testing 2:
+• Null Hypothesis: The null hypothesis (H₀) is that the population
+mean of age is greater than or equal to 75.
+• Alternative hypothesis (Hₐ): The alternative hypothesis (Hₐ) is
+that the population mean age is less than 75.
+• An independent samples t-test was conducted to test the hypotheses. • Since the p-value obtained is 1 which is greater than 0.05, we cannot reject the null hypothesis. This means that there is not enough evidence to conclude that the population mean of age is less than 75.
